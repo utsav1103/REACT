@@ -1,21 +1,23 @@
-const Userprofile = ()=>{
+const Userprofile = (props)=>{
+    console.log(props);
+    
     return (
         <div style={{border: "1px solid #ccc", padding:'20px', margin:'20px'}}>
             <h2>User Profile</h2>
             <p>
-                <b>Name</b>: Tissa..
+                <b>Name</b>: {props.name}
             </p>
             <p>
-                <b>Email</b>: tissa@gamil.com
+                <b>Email</b>: {props.email}
             </p>
             <p>
-                <b>Location</b>: Ratlam
+                <b>Location</b>: {props.location}
             </p>
             <p>
-                <b>Hobby</b>: Pet owner, Musician
+                <b>Hobby</b>: {props.hobby}
             </p>
             <p>
-                <b>about</b>: Tissa.. is a AI/ML engineer . She is passonate, hard working and self learner.
+                <b>about</b>: {props.about}
             </p>
         </div>
     )
