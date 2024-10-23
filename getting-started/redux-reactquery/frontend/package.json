@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.10",
+    "@heroicons/react": "^2.1.5",
     "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "formik": "^2.4.6",
