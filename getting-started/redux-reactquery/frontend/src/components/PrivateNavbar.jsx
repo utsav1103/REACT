@@ -3,11 +3,19 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { SiAuthy } from "react-icons/si";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { FaRegUser } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { PlusIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { FaBlog } from "react-icons/fa";
+import { logoutAction } from "../redux/slices/authSlice";
 
 export default function PrivateNavbar() {
+  //! Dispatch
+  const dispatch = useDispatch();
+  //logout handler
+  const logoutHandler = () => {
+    dispatch(logoutAction());
+  }
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -51,7 +59,7 @@ export default function PrivateNavbar() {
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <button
-                    
+                    onClick={logoutHandler}
                     className="relative inline-flex items-center gap-x-1.5 rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 animate-pulse"
                   >
                     <FaRegUser className="-ml-0.5 h-5 w-5" aria-hidden="true" />
