@@ -1,8 +1,14 @@
 import React from "react";
 import { FiMail, FiLock } from "react-icons/fi";
 import { useFormik } from "formik";
+import {useDispatch} from "react-redux";
+import {useMutation} from "@tanstack/react-query";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { loginAPI } from "../services/userService";
+import AlertMessage from "./AlertMessage";
+import { loginAction } from "../redux/slices/authSlice";
+
 //! Validation schema
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -11,6 +17,13 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Pasword is required"),
 });
 const Login = () => {
+  //! Mutation here
+  const mutation = useMutation({
+    mutationFn: loginAPI,
+    mutationKey: ['login'],
+  })
+  //! Dispatch
+  const dispatch = useDispatch()
   //!Handle form using formik
   const formik = useFormik({
     initialValues: {
@@ -20,6 +33,13 @@ const Login = () => {
     validationSchema,
     onSubmit: (values) => {
       // Implementation of form submission
+      mutation.mutateAsync(values).then((data)=>{
+        //dispatch action from redux
+        dispatch(loginAction(data));
+        //save the user into local storage
+        localStorage.setItem('userInfo', JSON.stringify(data))
+      }).catch((e)=>console.log(e))
+      
     },
   });
 
@@ -40,6 +60,10 @@ const Login = () => {
             </Link>
           </p>
         </div>
+        {/* display alert message */}
+        {mutation.isPending && <AlertMessage type='loading' message = 'loading please wait...'/>}
+        {mutation.isSuccess && <AlertMessage type = 'success' message = 'Login Successful'/>}
+        {mutation.isError && <AlertMessage type = 'error' message = 'Login Failed'/>}
         <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="mb-4">

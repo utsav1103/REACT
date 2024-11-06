@@ -4,7 +4,7 @@ const authSlice = createSlice({
   //! Initial state
   name: "auth",
   initialState: {
-    user: null,
+    user: JSON.parse(localStorage.getItem("userInfo")) || null,
   },
 
   //! Reducers
