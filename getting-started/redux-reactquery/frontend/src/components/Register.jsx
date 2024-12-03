@@ -1,9 +1,11 @@
 import React from "react";
 import { FiMail, FiLock } from "react-icons/fi";
 import { useFormik } from "formik";
+import {useMutation} from "@tanstack/react-query";
 import * as Yup from "yup";
 import { CiUser } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { registerAPI } from "../services/userService";
 
 //! Validation schema
 const validationSchema = Yup.object({
@@ -14,6 +16,15 @@ const validationSchema = Yup.object({
   username: Yup.string().required("Username is required"),
 });
 const Register = () => {
+  //! Mutation here
+  const mutation = useMutation({
+    mutationFn: registerAPI,
+    mutationKey: ['register'],
+  });
+
+  //!Navigate
+  const navigate = useNavigate()
+
   //!Handle form using formik
   const formik = useFormik({
     initialValues: {
@@ -24,6 +35,11 @@ const Register = () => {
     validationSchema,
     onSubmit: (values) => {
       //Make http request
+       // Implementation of form submission
+       mutation.mutateAsync(values).then((data)=>{
+        //redirect to login page
+        navigate('/login')
+      }).catch((e)=>console.log(e));
     },
   });
 

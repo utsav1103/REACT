@@ -21,7 +21,7 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: loginAPI,
     mutationKey: ['login'],
-  })
+  });
   //! Dispatch
   const dispatch = useDispatch()
   //!Handle form using formik
