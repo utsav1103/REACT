@@ -1,3 +1,4 @@
+import Header from "./Components/Header/Header";
 import Navbar from "./Components/Navbar/Navbar";
 
 
@@ -6,6 +7,7 @@ function App() {
     <div>
       
       <Navbar />
+      <Header />
     </div>
   );
 }
